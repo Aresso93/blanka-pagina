@@ -51,6 +51,29 @@ function loadLocally(){
 
 }
 
+function downloadTxt(){
+
+    const textarea = document.getElementById('textarea');
+    const textToSave = textarea.value;
+    const blob = new Blob([textToSave], { type: 'text/plain'});
+    const url = URL.createObjectURL(blob);
+
+    const downloadLink = document.createElement('a')
+    downloadLink.href = url;
+    downloadLink.download = 'text_file.txt';
+
+
+    document.body.appendChild(downloadLink)
+
+    downloadLink.click()
+
+    document.body.removeChild(downloadLink);
+
+}
+
+const downloadBtn = document.getElementById('downloadBtn')
+downloadBtn.addEventListener('click', downloadTxt)
+
 function countCharacters(text){
     const textWithoutSpaces = text.replace(/\s+/g, '');
     return textWithoutSpaces.length;

@@ -40,8 +40,12 @@ body{
 
 .right-div{
     grid-template-areas: right;
+    justify-self: right;
+    padding: 12px;
 }
 
 .left-div{
     grid-template-areas: left;
+    justify-self: left;
+    padding: 8px;
 }
