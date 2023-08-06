@@ -14,15 +14,24 @@
    
     <div>
         <textarea name="" id="textarea" cols="100" rows="300" class= "light" placeholder="scrivi pure"></textarea>
+        <div id="preview"></div>
     </div>
     <div class="right-div">
         <button onclick="switchThemes()">
             Cambia er tema, ao'
         </button>
-        <button id = "downloadBtn">
+        <button id = "download-btn">
             Scaricate er testo
+        </button>
+        <button id = "fullscreen-btn">
+            Schermo intero
+        </button>
+        <button id = "markdown-btn">
+            Markdown on/off
         </button>
     </div>
 </body>
 <script src="./main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
 </html>

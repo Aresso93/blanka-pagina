@@ -42,6 +42,8 @@ body{
     grid-template-areas: right;
     justify-self: right;
     padding: 12px;
+    display: flex;
+    flex-direction: column;
 }
 
 .left-div{

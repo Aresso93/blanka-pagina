@@ -9,7 +9,39 @@ function updateCounters(){
     textarea.style.resize = "none";
 }
 
-textarea.addEventListener('input', updateCounters)
+textarea.addEventListener('input', updateCounters);
+
+const toggleButton = document.getElementById('markdown-btn');
+const preview = document.getElementById('preview');
+
+toggleButton.addEventListener('click', toggleMarkdown);
+
+let isMarkdown = false;
+updatePreview();
+
+function toggleMarkdown(){
+    isMarkdown = !isMarkdown;
+    updatePreview();
+}
+
+function updatePreview(){
+
+    if (isMarkdown) {
+        const markdownText = textarea.value;
+        const htmlText = marked(markdownText);
+
+        preview.innerHTML = htmlText;
+
+        textarea.style.display = 'none';
+        preview.style.display = 'block';
+        toggleButton.textContent = 'Toggle Plain Text';
+    } else {
+        textarea.style.display = 'block';
+        preview.style.display = 'none';
+        toggleButton.textContent = 'Toggle Markdown';
+    }
+
+}
 
 function switchThemes(){
 
@@ -71,7 +103,7 @@ function downloadTxt(){
 
 }
 
-const downloadBtn = document.getElementById('downloadBtn')
+const downloadBtn = document.getElementById('download-btn')
 downloadBtn.addEventListener('click', downloadTxt)
 
 function countCharacters(text){
@@ -91,6 +123,44 @@ function countWords(text){
 }
 
 
+const fullscreenBtn = document.getElementById('fullscreen-btn');
+fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+function toggleFullscreen(){
+
+    if (document.fullscreenElement) {
+        exitFullscreen();
+    } else {
+        enterFullscreen();
+    }
+}
+
+function enterFullscreen(){
+
+    const element = document.documentElement;
+    if(element.requestFullscreen){
+        element.requestFullscreen();
+    } else if (element.mozRequestFullScreen) {
+        
+    } else if (element.webkitRequestFullscreen) {
+
+    } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen()
+    }
+
+}
+
+function exitFullscreen(){
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+
+    } else if (document.webkitExitFullscreen) {
+
+    } else if (document.msExitFullscreen) {
+        document.msExitFullscreen()
+    }
+}
 
 saveLocally()
 
