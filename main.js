@@ -1,6 +1,6 @@
 const localStorageKey = 'testo';
 
-function updateCounters(){
+function updateCounters() {
     const textarea = document.getElementById('textarea')
     const counterDiv = document.getElementById('counter-div')
     const wordsCount = countWords(textarea.value)
@@ -19,12 +19,12 @@ toggleButton.addEventListener('click', toggleMarkdown);
 let isMarkdown = false;
 updatePreview();
 
-function toggleMarkdown(){
+function toggleMarkdown() {
     isMarkdown = !isMarkdown;
     updatePreview();
 }
 
-function updatePreview(){
+function updatePreview() {
 
     if (isMarkdown) {
         const markdownText = textarea.value;
@@ -43,11 +43,11 @@ function updatePreview(){
 
 }
 
-function switchThemes(){
+function switchThemes() {
 
     console.log('TATSUMAKI SENPUKYAKU');
-    const textarea = document.getElementById('textarea');
-    if (document.body.className === 'light' && textarea.className === 'light'){
+    textarea = document.getElementById('textarea');
+    if (document.body.className === 'light' && textarea.className === 'light') {
         textarea.className = 'dark'
         document.body.className = 'dark'
     } else {
@@ -61,33 +61,33 @@ function switchThemes(){
 // counterDiv.appendChild(document.createTextNode('Hai scritto ' + countWords(textarea.value) + ' parole e ' + countCharacters(textarea.value) + ' caratteri'))
 // textarea.style.resize = "none";
 
-function saveLocally(){
-    const textarea = document.getElementById('textarea');
-    
+function saveLocally() {
+    textarea = document.getElementById('textarea');
+
     textarea.addEventListener('input', function (event) {
-    const text = event.target.value;
-    localStorage.setItem(localStorageKey, text)    
+        const text = event.target.value;
+        localStorage.setItem(localStorageKey, text)
 
     });
 
 }
 
-function loadLocally(){
+function loadLocally() {
 
-    window.addEventListener('load', function (){
+    window.addEventListener('load', function () {
         const savedText = this.localStorage.getItem(localStorageKey)
-        if (savedText){
+        if (savedText) {
             textarea.value = savedText
         }
     });
 
 }
 
-function downloadTxt(){
+function downloadTxt() {
 
-    const textarea = document.getElementById('textarea');
+    textarea = document.getElementById('textarea');
     const textToSave = textarea.value;
-    const blob = new Blob([textToSave], { type: 'text/plain'});
+    const blob = new Blob([textToSave], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
 
     const downloadLink = document.createElement('a')
@@ -106,15 +106,15 @@ function downloadTxt(){
 const downloadBtn = document.getElementById('download-btn')
 downloadBtn.addEventListener('click', downloadTxt)
 
-function countCharacters(text){
+function countCharacters(text) {
     const textWithoutSpaces = text.replace(/\s+/g, '');
     return textWithoutSpaces.length;
 }
 
-function countWords(text){
+function countWords(text) {
     const trimmedText = text.trim();
 
-    if(trimmedText === ''){
+    if (trimmedText === '') {
         return 0
     }
 
@@ -126,7 +126,7 @@ function countWords(text){
 const fullscreenBtn = document.getElementById('fullscreen-btn');
 fullscreenBtn.addEventListener('click', toggleFullscreen);
 
-function toggleFullscreen(){
+function toggleFullscreen() {
 
     if (document.fullscreenElement) {
         exitFullscreen();
@@ -135,13 +135,13 @@ function toggleFullscreen(){
     }
 }
 
-function enterFullscreen(){
+function enterFullscreen() {
 
     const element = document.documentElement;
-    if(element.requestFullscreen){
+    if (element.requestFullscreen) {
         element.requestFullscreen();
     } else if (element.mozRequestFullScreen) {
-        
+
     } else if (element.webkitRequestFullscreen) {
 
     } else if (element.msRequestFullscreen) {
@@ -150,7 +150,7 @@ function enterFullscreen(){
 
 }
 
-function exitFullscreen(){
+function exitFullscreen() {
     if (document.exitFullscreen) {
         document.exitFullscreen();
     } else if (document.mozCancelFullScreen) {
