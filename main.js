@@ -5,48 +5,44 @@ function updateCounters() {
     const counterDiv = document.getElementById('counter-div')
     const wordsCount = countWords(textarea.value)
     const charactersCount = countCharacters(textarea.value)
-    counterDiv.textContent = 'Hai scritto ' + wordsCount + ' parole e ' + charactersCount + ' caratteri'
+    counterDiv.textContent = 'Hai scritto ' + wordsCount + ' parola/e e ' + charactersCount + ' caratteri'
     textarea.style.resize = "none";
 }
 
-textarea.addEventListener('input', updateCounters);
+
 
 const toggleButton = document.getElementById('markdown-btn');
-const preview = document.getElementById('preview');
+toggleButton.addEventListener('click', toggleConversion)
 
-toggleButton.addEventListener('click', toggleMarkdown);
 
-let isMarkdown = false;
-updatePreview();
+let isMarkdown = true;
+let originalText = '';
+const textarea = document.getElementById('textarea')
+textarea.addEventListener('input', updateCounters);
+const md = window.markdownit()
 
-function toggleMarkdown() {
-    isMarkdown = !isMarkdown;
-    updatePreview();
-}
-
-function updatePreview() {
-
+function toggleConversion() {
     if (isMarkdown) {
-        const markdownText = textarea.value;
-        const htmlText = marked(markdownText);
-
+        originalText = textarea.value;
+        const htmlText = md.render(originalText);
+        const preview = document.getElementById('preview');
         preview.innerHTML = htmlText;
-
         textarea.style.display = 'none';
         preview.style.display = 'block';
-        toggleButton.textContent = 'Toggle Plain Text';
     } else {
-        textarea.style.display = 'block';
+        const preview = document.getElementById('preview');
         preview.style.display = 'none';
-        toggleButton.textContent = 'Toggle Markdown';
+        textarea.style.display = 'block';
+        textarea.value = originalText;
     }
-
+    isMarkdown = !isMarkdown;
 }
+
 
 function switchThemes() {
 
     console.log('TATSUMAKI SENPUKYAKU');
-    textarea = document.getElementById('textarea');
+    const textarea = document.getElementById('textarea');
     if (document.body.className === 'light' && textarea.className === 'light') {
         textarea.className = 'dark'
         document.body.className = 'dark'
@@ -56,13 +52,8 @@ function switchThemes() {
     }
 
 }
-// const textarea = document.getElementById('textarea')
-// const counterDiv = document.getElementById('counter-div')
-// counterDiv.appendChild(document.createTextNode('Hai scritto ' + countWords(textarea.value) + ' parole e ' + countCharacters(textarea.value) + ' caratteri'))
-// textarea.style.resize = "none";
 
 function saveLocally() {
-    textarea = document.getElementById('textarea');
 
     textarea.addEventListener('input', function (event) {
         const text = event.target.value;
@@ -85,7 +76,7 @@ function loadLocally() {
 
 function downloadTxt() {
 
-    textarea = document.getElementById('textarea');
+    const textarea = document.getElementById('textarea');
     const textToSave = textarea.value;
     const blob = new Blob([textToSave], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
