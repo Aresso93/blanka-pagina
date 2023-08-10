@@ -32,11 +32,10 @@ textarea.addEventListener('input', updateCounters);
 
 updateCounters()
 
-
+//MARKDOWN
 
 const toggleButton = document.getElementById('markdown-btn');
 toggleButton.addEventListener('click', toggleConversion)
-
 
 let isMarkdown = true;
 let originalText = '';
@@ -60,6 +59,7 @@ function toggleConversion() {
     isMarkdown = !isMarkdown;
 }
 
+//CAMBIO TEMA
 
 function switchThemes() {
 
