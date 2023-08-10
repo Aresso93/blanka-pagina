@@ -20,34 +20,35 @@ html, body{
 
 body{
     display: grid;
-    grid-template-rows: 1;
-    grid-template-columns: 3;
+    grid-template-rows: 1fr;
+    grid-template-columns:1fr 2fr 1fr;
     grid-template-areas: 'left center right';
     box-sizing: border-box;
 }
 
 #textarea{
-    grid-template-areas: center;
+    grid-area: center;
     height: 100vh;
     margin: 0px;
-    padding: 0px;
+    padding: 60px;
     border: none;
     outline: none;
     margin-top: 80px;
     text-align: center;
-    font-size: larger;
+    font-size:xx-large
 }
 
 .right-div{
-    grid-template-areas: right;
+    grid-area: right;
     justify-self: right;
     padding: 12px;
     display: flex;
     flex-direction: column;
+    gap: 4px;
 }
 
 .left-div{
-    grid-template-areas: left;
+    grid-area: left;
     justify-self: left;
     padding: 8px;
 }

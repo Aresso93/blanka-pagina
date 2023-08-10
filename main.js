@@ -1,4 +1,6 @@
-const localStorageKey = 'testo';
+
+
+//CONTEGGIO PAROLE
 
 function updateCounters() {
     const textarea = document.getElementById('textarea')
@@ -9,6 +11,27 @@ function updateCounters() {
     textarea.style.resize = "none";
 }
 
+function countWords(text) {
+    const trimmedText = text.trim();
+
+    if (trimmedText === '') {
+        return 0
+    }
+
+    const wordsArray = trimmedText.split(/\s+/);
+    return wordsArray.length;
+}
+
+function countCharacters(text) {
+    const textWithoutSpaces = text.replace(/\s+/g, '');
+    return textWithoutSpaces.length;
+}
+
+const textarea = document.getElementById('textarea')
+textarea.addEventListener('input', updateCounters);
+
+updateCounters()
+
 
 
 const toggleButton = document.getElementById('markdown-btn');
@@ -17,8 +40,7 @@ toggleButton.addEventListener('click', toggleConversion)
 
 let isMarkdown = true;
 let originalText = '';
-const textarea = document.getElementById('textarea')
-textarea.addEventListener('input', updateCounters);
+
 const md = window.markdownit()
 
 function toggleConversion() {
@@ -41,7 +63,6 @@ function toggleConversion() {
 
 function switchThemes() {
 
-    console.log('TATSUMAKI SENPUKYAKU');
     const textarea = document.getElementById('textarea');
     if (document.body.className === 'light' && textarea.className === 'light') {
         textarea.className = 'dark'
@@ -53,7 +74,9 @@ function switchThemes() {
 
 }
 
-function saveLocally() {
+//SALVATAGGIO E CARICAMENTO
+
+function saveLocally(){
 
     textarea.addEventListener('input', function (event) {
         const text = event.target.value;
@@ -63,7 +86,7 @@ function saveLocally() {
 
 }
 
-function loadLocally() {
+function loadLocally(){
 
     window.addEventListener('load', function () {
         const savedText = this.localStorage.getItem(localStorageKey)
@@ -74,9 +97,14 @@ function loadLocally() {
 
 }
 
+const localStorageKey = 'testo';
+
+
+//DOWNLOAD DEL TESTO
+
 function downloadTxt() {
 
-    const textarea = document.getElementById('textarea');
+    //const textarea = document.getElementById('textarea');
     const textToSave = textarea.value;
     const blob = new Blob([textToSave], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
@@ -97,21 +125,7 @@ function downloadTxt() {
 const downloadBtn = document.getElementById('download-btn')
 downloadBtn.addEventListener('click', downloadTxt)
 
-function countCharacters(text) {
-    const textWithoutSpaces = text.replace(/\s+/g, '');
-    return textWithoutSpaces.length;
-}
-
-function countWords(text) {
-    const trimmedText = text.trim();
-
-    if (trimmedText === '') {
-        return 0
-    }
-
-    const wordsArray = trimmedText.split(/\s+/);
-    return wordsArray.length;
-}
+//FULLSCREEN
 
 
 const fullscreenBtn = document.getElementById('fullscreen-btn');
@@ -157,4 +171,3 @@ saveLocally()
 
 loadLocally()
 
-updateCounters()
